@@ -473,3 +473,36 @@ export const decodeMetadata = (buffer: Buffer): Metadata => {
 	metadata.data.symbol = metadata.data.symbol.replace(METADATA_REPLACE, '');
 	return metadata;
 };
+
+export const decodeEdition = (buffer: Buffer) => {
+	return deserializeUnchecked(METADATA_SCHEMA, Edition, buffer) as Edition;
+  };
+
+export const decodeMasterEdition = (
+	buffer: Buffer,
+  ): MasterEditionV1 | MasterEditionV2 => {
+	if (buffer[0] == MetadataKey.MasterEditionV1) {
+	  return deserializeUnchecked(
+		METADATA_SCHEMA,
+		MasterEditionV1,
+		buffer,
+	  ) as MasterEditionV1;
+	} else {
+	  return deserializeUnchecked(
+		METADATA_SCHEMA,
+		MasterEditionV2,
+		buffer,
+	  ) as MasterEditionV2;
+	}
+  };
+
+export const decodeEditionMarker = (buffer: Buffer): EditionMarker => {
+	const editionMarker = deserializeUnchecked(
+	  METADATA_SCHEMA,
+	  EditionMarker,
+	  buffer,
+	) as EditionMarker;
+	return editionMarker;
+  };
+
+
