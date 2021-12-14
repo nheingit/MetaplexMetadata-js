@@ -64,18 +64,6 @@ async function getNft(mint_address: PublicKey, ) {
 		console.log(e)
 	}
 }
-
-
-async function getTokensForWallet(walltAddress: PublicKey){
-	const solana = new Connection(CONNECTION)
-	const tokens =  await solana.getTokenAccountsByOwner(
-		walltAddress, 
-		{
-			programId: new PublicKey("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA")
-		})
-	return tokens
-}
-
+// This is the Mint Address of an NFT
 const address = new PublicKey("CuxjQhNwpuGJVhnSt4czUkToWy5nemKDeVrEURNZXqgj")
 getNft(address)
-getTokensForWallet(new PublicKey("DcTmx4VLcf5euAB17nynax7g55xuB3XKBDyz1pudMcjW")).then(tokens => console.log(tokens.value[0].account.data))
